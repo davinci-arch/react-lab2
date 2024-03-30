@@ -21,10 +21,17 @@ module.exports = {
         'desc': ['14px', {
           lineHeight: '16px',
           fontWeight: '500',
-        }]
-
+        }],
+        'material': '12px !important',
       }
     },
+    backgroundImage: {
+      'gradient-mono': 'linear-gradient(136.56deg, #8a53b6 0%, #cea2d0 97.42%)',
+      'gradient-card': 'linear-gradient(92.12deg, #57b5f9 0%, #da11ba 100%)',
+    },
+    boxShadow: {
+      'outline': '0 0 0 2.5px black',
+    }
   },
   plugins: [],
 }
