@@ -5,16 +5,15 @@ import PayButton from "./PayButton"
 import SubFieldMaterial from "./SubFieldMaterial"
 import React, {useState} from 'react';
 
-export default function RigthSide(){
-    
-
+export default function RigthSide({state, setState}){
+    const [curValue, changeValue] = useState(0);
     return (
         <div className="z-0 relative flex flex-col items-center bg-white min-h-[620px]">
-            <MoneyCard />
+            <MoneyCard curState={curValue} changeCurState={changeValue} />
             <MaterialInput promt="Ваше ім'я (необов'язково)" />
             <MaterialInput promt="Коментар (необов'язково)" />
-            <PayButton url="https://send.monobank.ua/img/mono_pay.svg"/>
-            <PayButton url="https://www.gstatic.com/instantbuy/svg/dark_gpay.svg"/>
+            <PayButton url="https://send.monobank.ua/img/mono_pay.svg" state={state} setState={setState} value={curValue}/>
+            <PayButton url="https://www.gstatic.com/instantbuy/svg/dark_gpay.svg" state={state} setState={setState} value={curValue}/>
             <div className="flex flex-col w-full mx-6 box-border max-w-[340px] mb-[42px] base">
                 <div className="mt-6 mb-[8px] border-t-[0.5px] border-solid border-t-gray-300"></div>
                 <div className="flex font-semibold text-[14px] leading-6 text-center p-[8px] cursor-pointer bg-transparent text-[#e85e5b] items-center justify-center w-full box-border rounded-[8px]" onClick={openSection}>

@@ -1,5 +1,5 @@
 
-export default function LeftSide() {
+export default function LeftSide({state, setState}) {
     return (
         // pt-0 pr-[20px] pb-0 pl-[20px]
         <header className="flex flex-col h-full">
@@ -37,7 +37,7 @@ export default function LeftSide() {
                         <img src="https://send.monobank.ua/img/collected.svg" alt="icon" className="mr-4 w-6 h-6 min-w-6 bg-cover border-0" />
                         <div className="flex flex-col">
                             <div className="text-th text-[#808080] text-left">Накопичено</div>
-                            <div className="text-t text-black text-left">0₴</div>
+                            <div className="text-t text-black text-left">{state} ₴</div>
                         </div>
                     </div>
                     <div className="relative flex flex-row items-center pt-0 pr-[20px] pb-0 pl-[20px] mt-[12px] mr-0 mb-[12px] ml-0">

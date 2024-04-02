@@ -6,12 +6,12 @@ function putCursorAfterText(event) {
     const selection = window.getSelection();
     const range = document.createRange();
     range.selectNodeContents(event.target);
-    range.collapse(false); // set cursor to the end
+    range.collapse(false);
     selection.removeAllRanges();
     selection.addRange(range);
 }
 
-export default function MoneyCard() {
+export default function MoneyCard({ curState, changeCurState }) {
     const [currentValue, setNewValue] = useState(0);
 
 
@@ -27,29 +27,37 @@ export default function MoneyCard() {
             if (inputMoneyField.innerText.length === 1 && event.key === 'Backspace') {
                 inputMoneyField.textContent = "0";
                 setNewValue(0);
+
                 event.preventDefault();
                 putCursorAfterText(event);
             }
-            
+
         };
         inputMoneyField.addEventListener('keydown', handleKeyPress);
         return () => {
             inputMoneyField.removeEventListener('keydown', handleKeyPress);
         };
     }, []);
-    
+
+
+
     const handleButtonClick = (amount) => {
         if ((currentValue + amount) >= 30000) {
             setNewValue(29999);
         } else {
             setNewValue(currentValue + amount);
         }
+
     }
+    useEffect(() => {
+        changeCurState(currentValue);
+        validate(currentValue);
+    }, [currentValue]);
+
     const handleChange = (event) => {
         let currValue = event.target.textContent;
-        let element = document.getElementsByClassName('warn')[0];
-        let input = document.getElementsByClassName('inp')[0];
-        
+
+
         if (currValue === '') {
             setNewValue(0);
             event.target.textContent = "0";
@@ -59,14 +67,25 @@ export default function MoneyCard() {
             let newVal = currValue.substring(1, currValue.length);
             setNewValue(parseInt(newVal));
             event.target.textContent = newVal;
+
         } else if (currValue > 29999) {
             setNewValue(29999);
             event.target.textContent = "29999";
+
         } else {
             setNewValue(parseInt(currValue));
+
         }
 
-        if (currValue < 10) {
+
+        putCursorAfterText(event);
+    };
+
+    const validate = (value) => {
+        let element = document.getElementsByClassName('warn')[0];
+        let input = document.getElementsByClassName('inp')[0];
+
+        if (value < 10) {
             input.classList.add('opacity-50');
             input.classList.add('text-[#b30953]');
             element.classList.remove("hidden");
@@ -76,9 +95,7 @@ export default function MoneyCard() {
             input.classList.remove("text-[#b30953]");
             element.classList.add("hidden");
         }
-        putCursorAfterText(event);
-    };
-    
+    }
 
     return (
         <div className="relative p-6 box-border w-[394px] bg-clip-padding border-solid border-[3px] border-transparent bg-white rounded-[24px] mt-[48px] mb-[32px] before:content-[''] before:absolute before:top-0 before:bottom-0 before:left-0 before:right-0 before:m-[-3px] before:rounded-[24px] before:z-[-1] before:bg-gradient-card">
@@ -103,4 +120,6 @@ export default function MoneyCard() {
 
     )
 }
+
+
 
